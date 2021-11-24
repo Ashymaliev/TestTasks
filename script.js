@@ -1,40 +1,28 @@
 /**
- * @param {string} digits
- * @return {string[]}
+ * @param {number[][]} grid
+ * @return {number}
  */
- var letterCombinations = function(digits) {
-    
-    let letters = {
-        2: ['a', 'b', 'c'],
-        3: ['d', 'e', 'f'],
-        4: ['g', 'h', 'i'],
-        5: ['j', 'k', 'l'],
-        6: ['m', 'n', 'o'],
-        7: ['p', 'q', 'r','s'],
-        8: ['t', 'u', 'v'],
-        9: ['w', 'x', 'y','z'],
-    }
-    
-    let num = [];
-    num = [" "];
-    
-    if(!digits)return [];
-    
-    for(let i=0; i < digits.length; i++){
-        let digit = digits[i]
-        
-        let n = num.length;
-        
-        for(let j=0; j < n; j++){
-            
-            let lookUp = letters[digit];
-            let pop = num.shift();
-            for(let k =0; k < lookUp.length; k++){
-                
-                let newData = pop + lookUp[k]
-                num.push(newData.trim())
-            }
-        }
-    }
-    return num
+
+// Time:  O(n * m)
+// Space: O(m)
+var minPathSum = function(grid) {
+    const n = grid.length
+   const m = grid[0].length
+   // just like 62, we store not the count
+   // but [sum, path]
+   const dp = Array(m).fill(0).map(_ => Number.POSITIVE_INFINITY)
+   dp[0] = 0
+  
+
+   
+   for (let i = 0; i < n; i++) {
+     for (let j = 0; j < m; j++) {
+       const left = j === 0 ? Number.POSITIVE_INFINITY : dp[j - 1]
+       const top = dp[j]
+     
+       dp[j] = grid[i][j] + Math.min(left, top)
+     }
+   }
+
+  return dp[m - 1]
 };
