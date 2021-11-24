@@ -12,8 +12,7 @@ const map = new Map([
    * @param {number} num
    * @return {string}
    */
-  // get thet last digit one by one
-  // and generate the result
+
   var intToRoman = function(num) {
     let base = 1
     const result = []
